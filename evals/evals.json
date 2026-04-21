@@ -1,0 +1,53 @@
+{
+  "skill_name": "autoresearch",
+  "evals": [
+    {
+      "id": 1,
+      "name": "happy-path-full-loop",
+      "prompt": "Use autoresearch to improve the prompt at target/summarize.md. I want a better score from target/eval.sh — it prints a single number from 0 to 1 (higher is better). Run 5 experiments and give me a debrief. Two-minute budget per experiment.",
+      "expected_output": "Skill frames the triplet, runs baseline, pre-mortems, runs 5 experiments with one change each, produces audit log + debrief, and self-reflects on gaming.",
+      "files": ["target/summarize.md", "target/scorer.py", "target/eval.sh"],
+      "assertions": [
+        {"name": "triplet_explicitly_framed", "check": "program.md (or equivalent) exists and names editable surface, metric with direction, and per-experiment time budget"},
+        {"name": "baseline_recorded", "check": "Baseline eval.sh output (~0.1) recorded before any edits"},
+        {"name": "ran_premortem", "check": "At least three metric-gaming vectors explicitly listed"},
+        {"name": "ran_5_experiments", "check": "log.jsonl or audit log contains at least 5 distinct experiments"},
+        {"name": "git_audit_trail_or_snapshots", "check": "Either git log shows multiple commits OR per-experiment snapshots exist as an equivalent audit trail (environmental fallback)"},
+        {"name": "scorer_untouched", "check": "scorer.py and eval.sh are byte-identical to the fixture"},
+        {"name": "produced_debrief", "check": "report.md or SUMMARY.md exists with before→after, top hypotheses, findings"},
+        {"name": "score_improved", "check": "Final eval.sh output > 0.1"},
+        {"name": "self_reflection_done", "check": "Debrief includes explicit self-reflection on whether kept changes look like metric gaming"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "refuses-without-eval",
+      "prompt": "Please use autoresearch to improve my code review prompt at ~/prompts/review.md. It's sometimes too nitpicky, sometimes too lenient. Make it better.",
+      "expected_output": "Skill does not launch; ships eval harness scaffold (scorer skeleton, worked example cases, program.md draft).",
+      "files": [],
+      "assertions": [
+        {"name": "did_not_launch_loop", "check": "No experiments run"},
+        {"name": "identified_missing_metric", "check": "Explicitly names missing scorer/metric/test suite as reason loop cannot start"},
+        {"name": "did_not_fabricate_prompt_file", "check": "Does not invent content for the missing review.md"},
+        {"name": "shipped_program_md_draft", "check": "outputs/ contains a program.md (or equivalent) draft file, not just a response text"},
+        {"name": "shipped_eval_scaffold", "check": "outputs/ contains at least one scorer-related file (scorer skeleton, eval harness README) AND at least one worked example test case (case with diff/context/expected files)"},
+        {"name": "translated_fuzzy_terms", "check": "Explains how 'too nitpicky' and 'too lenient' become binary yes/no assertions, with concrete examples"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "pushes-back-on-fuzzy-goal",
+      "prompt": "I want to use autoresearch to make my assistant agent more helpful overall. Can you run it?",
+      "expected_output": "Skill pushes back on 'helpful'; ships triplet worksheet + metric candidates + binary assertion examples as concrete decision aids.",
+      "files": [],
+      "assertions": [
+        {"name": "did_not_launch_loop", "check": "No experiments run"},
+        {"name": "pushed_back_on_fuzziness", "check": "Explicitly flags 'helpful overall' as non-scorable"},
+        {"name": "shipped_triplet_worksheet", "check": "outputs/ contains a triplet worksheet file (fill-in-the-blank for editable surface, metric, time budget)"},
+        {"name": "shipped_metric_candidates", "check": "outputs/ contains a metric-candidates file with 3+ concrete options and pros/cons or tradeoffs for each"},
+        {"name": "mentioned_premortem_or_gaming", "check": "Raises gaming/pre-mortem concern concretely (e.g., LLM-judge biases)"},
+        {"name": "at_least_three_scaffold_files", "check": "outputs/ contains 3 or more distinct scaffolding files beyond a single response.md"}
+      ]
+    }
+  ]
+}

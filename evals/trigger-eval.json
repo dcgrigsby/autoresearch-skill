@@ -1,0 +1,22 @@
+[
+  {"query": "hey, can you autoresearch my code-review skill at ~/.claude/skills/code-reviewer/? I've got 40 diffs in evals/cases with labels and want to hill-climb on pass rate. budget 90s/experiment, aim for 30 iterations", "should_trigger": true},
+  {"query": "use autoresearch to tune my json-extractor prompt — it's at prompts/extractor.md. metric is exact-match on 25 test cases in prompts/tests.jsonl", "should_trigger": true},
+  {"query": "I wanna run the karpathy loop on my triage bot's system prompt. ~200 labeled support tickets as the eval set. don't launch yet, set up the triplet first", "should_trigger": true},
+  {"query": "think we can autoresearch the compress-memory skill I've been working on? compressor.py transforms md files, metric is chars-removed at 99% info preservation. 15 source docs to score on", "should_trigger": true},
+  {"query": "let's do overnight hill-climbing on /Users/me/work/summarizer/prompt.md. leaving it running, checking tomorrow — 50 experiments, LLM-judge on 20 articles", "should_trigger": true},
+  {"query": "i read the shopify autoresearch post and want to try it on our internal css linter. set up the program.md. editable file is lints.json, metric is violations caught on 500 PR fixture", "should_trigger": true},
+  {"query": "got a pile of chat logs where my agent hallucinated. want to autoresearch the retrieval prompt at rag/retrieve.md against these as negative cases. build the scorer first, then run it", "should_trigger": true},
+  {"query": "can you tournament-style prompt tune my onboarding welcome message? 3 variant slots, eval is time-to-first-click from 40 mock users", "should_trigger": true},
+  {"query": "i have a deterministic scorer that prints 0.0-1.0, lower is better (time-to-answer). run autoresearch on planner.py against it, 10 iterations, revert if not strictly better", "should_trigger": true},
+  {"query": "need to try 100 variations of my meeting-notes prompt overnight and pick the best. pass rate on 30 test transcripts is the metric. don't just re-iterate in conversation, actually set up autoresearch", "should_trigger": true},
+  {"query": "write me a hook that auto-commits my changes before every claude stop event", "should_trigger": false},
+  {"query": "the claude cli keeps asking permission on bq commands, how do i allowlist them globally", "should_trigger": false},
+  {"query": "i'm fine-tuning a small llama model using autoresearch-style hyperparameter sweeps. which learning rate should i start with?", "should_trigger": false},
+  {"query": "my code review prompt is kinda bad. can you just rewrite it?", "should_trigger": false},
+  {"query": "help me skim this 80-page research paper on recursive self-improvement and pull out the three most important ideas", "should_trigger": false},
+  {"query": "what's the best way to a/b test two different error message styles in my web app? run for a week and see which converts", "should_trigger": false},
+  {"query": "rewrite my assistant agent's system prompt to be more helpful. no test suite, just go with your best judgment", "should_trigger": false},
+  {"query": "set up a cron job that pings my claude code once a week to check on open PRs", "should_trigger": false},
+  {"query": "optimize this python function for speed. O(n^2) string concat in utils/format.py, need O(n)", "should_trigger": false},
+  {"query": "Karpathy's nanogpt series is cool. what's the difference between nanogpt and nanochat?", "should_trigger": false}
+]
